@@ -43,7 +43,6 @@ foreach ($routes as $route => $action) {
     }
 }
 
-// 404
 if (!$found) {
     http_response_code(404);
     require __DIR__ . '/../app/views/404.php';

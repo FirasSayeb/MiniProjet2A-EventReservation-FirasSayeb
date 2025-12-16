@@ -25,7 +25,9 @@
                 <td><?= $event->seats ?></td>
                 <td><?= $event->image ?></td>
 
-                <td><a href="http://localhost/MiniEvent/public/events/<?= $event->id ?>">View</a></td>
+                <td><a href="http://localhost/MiniEvent/public/events/<?= $event->id ?>">View</a>
+                <a href="http://localhost/MiniEvent/public/events/<?= $event->id ?>/reserve">Reserve</a>
+            </td>
             </tr>
         <?php endforeach; ?>
     </table>
