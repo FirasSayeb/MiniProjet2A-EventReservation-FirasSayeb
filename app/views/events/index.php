@@ -1,3 +1,7 @@
+<head>
+<link rel="stylesheet" href=" http://localhost/MiniEvent/public/css/style.css">
+</head>
+
 <div>
     <h1>All Events</h1>
 
@@ -23,7 +27,7 @@
                 <td><?= $event->date ?></td>
                 <td><?= $event->location ?></td>
                 <td><?= $event->seats ?></td>
-                <td><?= $event->image ?></td>
+                <td><img src="<?= $event->image ?>" alt="event"/></td>
 
                 <td><a href="http://localhost/MiniEvent/public/events/<?= $event->id ?>">View</a>
                 <a href="http://localhost/MiniEvent/public/events/<?= $event->id ?>/reserve">Reserve</a>

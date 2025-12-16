@@ -1,4 +1,6 @@
-
+<head>
+<link rel="stylesheet" href=" http://localhost/MiniEvent/public/css/reserve.css">
+</head>
 <div>
     <h1>Reserver</h1>
     <form method="POST">
