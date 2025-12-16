@@ -1,7 +1,7 @@
 <head>
     <link rel="stylesheet" href="http://localhost/MiniEvent/public/css/reussite.css">
 </head>
-
+<?php require __DIR__ . '/../partials/header.php';  ?>
 <div class="success-container">
     <div class="success-card">
         <div class="icon">✔</div>
@@ -24,3 +24,4 @@
         <a class="btn" href="http://localhost/MiniEvent/public/">View All Events</a>
     </div>
 </div>
+<?php require __DIR__ . '/../partials/footer.php';  ?>

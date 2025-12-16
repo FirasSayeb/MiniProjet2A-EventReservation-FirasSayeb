@@ -1,7 +1,7 @@
 <head>
 <link rel="stylesheet" href=" http://localhost/MiniEvent/public/css/style.css">
 </head>
-
+<?php require __DIR__ . '/../partials/header.php';  ?>
 <div>
     <h1>All Events</h1>
 
@@ -38,3 +38,4 @@
 
     
 </div>
+<?php require __DIR__ . '/../partials/footer.php';  ?>

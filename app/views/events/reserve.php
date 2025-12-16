@@ -1,6 +1,7 @@
 <head>
 <link rel="stylesheet" href=" http://localhost/MiniEvent/public/css/reserve.css">
 </head>
+<?php require __DIR__ . '/../partials/header.php';  ?>
 <div>
     <h1>Reserver</h1>
     <form method="POST">
@@ -27,5 +28,5 @@
     </form>
     <a href="http://localhost/MiniEvent/public/">View All Events</a>
 </div>
-
+<?php require __DIR__ . '/../partials/footer.php';  ?>
 
