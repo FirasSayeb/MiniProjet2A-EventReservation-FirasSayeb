@@ -18,8 +18,24 @@ class AdminController
     public function dashboard()
     {
         if(isset($_SESSION['login'])){
+            $sql = "SELECT * FROM events";
+    $stmt = $this->pdo->query($sql);
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            require __DIR__ . '/../views/admin/dashboard.php';
+    $events = [];
+
+    foreach ($rows as $row) {
+        $e = new Event();
+        $e->id = $row["id"];
+        $e->title = $row["title"];
+        $e->description = $row["description"];
+        $e->date = $row["date"];
+        $e->location = $row["location"];
+        $e->seats = $row["seats"];
+        $e->image = $row["image"];
+        $events[] = $e;
+    }
+         require __DIR__ . '/../views/admin/dashboard.php';
 
         }else{
            header('Location: ' . 'http://localhost/MiniEvent/public/admin/login' );
@@ -56,4 +72,60 @@ class AdminController
             header('Location: ' . 'http://localhost/MiniEvent/public/admin' );
        
     }
+
+    public function add(){
+
+    }
+
+    public function details($id)
+{
+    $stmt = $this->pdo->prepare(
+        "SELECT * FROM events WHERE id = :id"
+    );
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $event = $stmt->fetch(PDO::FETCH_OBJ);
+
+    if (!$event) {
+        die("Event not found");
+    }
+
+    require __DIR__ . '/../views/admin/details.php';
+}
+
+ public function update($id)
+{
+    $stmt = $this->pdo->prepare(
+        "SELECT * FROM events WHERE id = :id"
+    );
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $event = $stmt->fetch(PDO::FETCH_OBJ);
+
+    if (!$event) {
+        die("Event not found");
+    }
+
+    require __DIR__ . '/../views/admin/details.php';
+}
+
+public function delete($id)
+{
+    if (!isset($_SESSION['login'])) {
+        header('Location: http://localhost/MiniEvent/public/admin/login');
+        exit;
+    }
+
+    $stmt = $this->pdo->prepare(
+        "DELETE FROM events WHERE id = :id"
+    );
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    header('Location: http://localhost/MiniEvent/public/admin');
+    exit;
+}
+
 }
