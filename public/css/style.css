@@ -83,17 +83,19 @@ td a {
     transition: all 0.2s ease;
 }
 
-
-td a:first-child {
+td a.btn.view {
     background-color: #3498db;
-    color: #ffffff;
 }
 
-
-td a:last-child {
+td a.btn.edit {
     background-color: #2ecc71;
-    color: #ffffff;
 }
+
+td a.btn.delete {
+    background-color: #d72643;
+}
+
+
 
 
 td a:hover {
