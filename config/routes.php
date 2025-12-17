@@ -6,4 +6,7 @@ return [
     '/events/{id}/reserve' => 'EventController@reserve',
     '/events/{id}/reussite' => 'EventController@reussite',
     '/admin' => 'AdminController@dashboard',
+    '/admin/login' => 'AdminController@login',
+    '/admin/reservations' => 'AdminController@reservations',
+     '/admin/logout' => 'AdminController@logout',
 ];
