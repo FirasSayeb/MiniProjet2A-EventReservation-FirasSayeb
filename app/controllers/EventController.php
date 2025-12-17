@@ -65,14 +65,37 @@ class EventController
         $ins->bindValue(':phone',$_POST["telephone"]);
          $ins->bindValue(':created',date("Y-m-d H:i:s"));
          try{
-            $ins->execute();
+            $stmt = $this->pdo->prepare(
+        "SELECT * FROM events WHERE id = :id"
+    );
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $stmt2 = $this->pdo->prepare(
+        "SELECT count(*) as n FROM events e   join  reservations r on e.id=r.event_id   WHERE e.id = :id"
+    );
+    $stmt2->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt2->execute();
+    $n=$stmt2->fetch(PDO::FETCH_OBJ);
+
+    $event = $stmt->fetch(PDO::FETCH_OBJ);
+
+    if (!$event) {
+        die("Event not found");
+    }
+      if ($event->seats<=0 || $n->n == $event->seats ){
+            echo "<p style='color:red;'>Vous ne pouvez pas réserver cet événement</p>";
+      }else{
+         $ins->execute();
             setcookie("name",$_POST["nom"],time() + 86400,"/");
             setcookie("email",$_POST["email"],time() + 86400,"/");
             setcookie("phone",$_POST["telephone"],time() + 86400,"/");
             setcookie("created",date("Y-m-d H:i:s"),time() + 86400,"/");
            header('Location: ' . 'http://localhost/MiniEvent/public/events/'.$id.'/reussite' );
+      }
+           
          }catch(Exception $e){
-            echo "la réservation a échoué";
+             echo "<p style='color:red;'>la réservation a échoué</p>";
          }
     }
     $stmt = $this->pdo->prepare(

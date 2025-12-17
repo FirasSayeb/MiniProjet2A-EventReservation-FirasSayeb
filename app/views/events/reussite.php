@@ -20,8 +20,8 @@
             <p><strong>Phone:</strong> <?= htmlspecialchars($_COOKIE["phone"] ?? '') ?></p>
             <p><strong>Reservation Date:</strong> <?= htmlspecialchars($_COOKIE["created"] ?? '') ?></p>
         </div>
-
+   
         <a class="btn" href="http://localhost/MiniEvent/public/">View All Events</a>
     </div>
 </div>
-<?php require __DIR__ . '/../partials/footer.php';  ?>
+<?php require __DIR__ . '/../partials/footer.php';  ?> 
