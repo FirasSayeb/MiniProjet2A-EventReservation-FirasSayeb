@@ -73,9 +73,52 @@ class AdminController
        
     }
 
-    public function add(){
+   public function add()
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+        // 1️⃣ Validate upload
+        if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
+            die('Image upload failed');
+        }
+
+        // 2️⃣ Upload folder
+        $uploadDir = __DIR__ . '/../../public/images/';
+
+        // 3️⃣ Generate safe unique filename
+        $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+        $fileName = uniqid('event_', true) . '.' . $extension;
+        $filePath = $uploadDir . $fileName;
+
+        // 4️⃣ Move uploaded file
+        if (!move_uploaded_file($_FILES['image']['tmp_name'], $filePath)) {
+            die('Failed to move uploaded file');
+        }
+
+        // 5️⃣ Save relative path in DB (IMPORTANT)
+        $dbPath = 'public/images/' . $fileName;
+
+        // 6️⃣ Insert into database
+        $sql = "INSERT INTO events (title, description, date, location, seats, image)
+                VALUES (:title, :description, :date, :location, :seats, :image)";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':title' => $_POST['title'],
+            ':description' => $_POST['description'],
+            ':date' => $_POST['date'],
+            ':location' => $_POST['location'],
+            ':seats' => $_POST['seats'],
+            ':image' => $dbPath
+        ]);
+
+        header('Location: http://localhost/MiniEvent/public/admin');
+        exit;
     }
+
+    require __DIR__ . '/../views/admin/add.php';
+}
+
 
     public function details($id)
 {

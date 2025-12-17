@@ -12,7 +12,7 @@
         <li><strong>Date:</strong> <?= $event->date ?></li>
         <li><strong>Location:</strong> <?= $event->location ?></li>
         <li><strong>Seats:</strong> <?= $event->seats ?></li>
-        <li><strong>Image:</strong> <img src="<?= $event->image ?>" alt="event"/></li>
+        <li><strong>Image:</strong> <img src="/MiniEvent/<?= $event->image ?>" alt="event"> </li>
     </ul>
 
    <a href="http://localhost/MiniEvent/public/admin/">View All Events</a>

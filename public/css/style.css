@@ -83,6 +83,24 @@ td a {
     transition: all 0.2s ease;
 }
 
+td a:first-child{
+     background-color: #3498db;
+}
+td a:last-child{
+     background-color: #2ecc71;
+}
+.btn.add{
+     display: inline-block;
+     color: white;
+    padding: 6px 10px;
+    margin: 2px 0;
+    text-decoration: none;
+    font-size: 13px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    background-color: #1b3754;
+
+}
 td a.btn.view {
     background-color: #3498db;
 }
