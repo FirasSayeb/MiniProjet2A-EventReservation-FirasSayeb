@@ -83,7 +83,7 @@ class EventController
     if (!$event) {
         die("Event not found");
     }
-      if ($event->seats<=0 || $n->n == $event->seats ){
+      if ($event->seats<=0 || $n->n >= $event->seats ){
             echo "<p style='color:red;'>Vous ne pouvez pas réserver cet événement</p>";
       }else{
          $ins->execute();
