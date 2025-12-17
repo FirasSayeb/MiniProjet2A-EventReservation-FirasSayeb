@@ -6,7 +6,7 @@
 
 <div>
     <h1>All Events</h1>
-
+ <a class="btn add"  href="http://localhost/MiniEvent/public/admin/events/add">Add</a>
     <table border="1">
         <thead>
             <tr>
@@ -29,7 +29,7 @@
                 <td><?= $event->date ?></td>
                 <td><?= $event->location ?></td>
                 <td><?= $event->seats ?></td>
-                <td><img src="<?= $event->image ?>" alt="event"/></td>
+                <td><img src="/MiniEvent/<?= $event->image ?>" alt="event"></td>
                   <td>
                <a class="btn view"  href="http://localhost/MiniEvent/public/admin/events/<?= $event->id ?>">View</a>
                   <a class="btn edit" href="http://localhost/MiniEvent/public/admin/events/update/<?= $event->id ?>">Modify</a>

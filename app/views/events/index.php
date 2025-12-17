@@ -27,7 +27,7 @@
                 <td><?= $event->date ?></td>
                 <td><?= $event->location ?></td>
                 <td><?= $event->seats ?></td>
-                <td><img src="<?= $event->image ?>" alt="event"/></td>
+                <td><img src="/MiniEvent/<?= $event->image ?>" alt="event"></td>
 
                 <td><a href="http://localhost/MiniEvent/public/events/<?= $event->id ?>">View</a>
                 <a href="http://localhost/MiniEvent/public/events/<?= $event->id ?>/reserve">Reserve</a>
