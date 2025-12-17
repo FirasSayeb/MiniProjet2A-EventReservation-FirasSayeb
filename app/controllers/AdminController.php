@@ -77,28 +77,28 @@ class AdminController
 {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        // 1️⃣ Validate upload
+        
         if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
             die('Image upload failed');
         }
 
-        // 2️⃣ Upload folder
+       
         $uploadDir = __DIR__ . '/../../public/images/';
 
-        // 3️⃣ Generate safe unique filename
+       
         $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
         $fileName = uniqid('event_', true) . '.' . $extension;
         $filePath = $uploadDir . $fileName;
 
-        // 4️⃣ Move uploaded file
+      
         if (!move_uploaded_file($_FILES['image']['tmp_name'], $filePath)) {
             die('Failed to move uploaded file');
         }
 
-        // 5️⃣ Save relative path in DB (IMPORTANT)
+      
         $dbPath = 'public/images/' . $fileName;
 
-        // 6️⃣ Insert into database
+        
         $sql = "INSERT INTO events (title, description, date, location, seats, image)
                 VALUES (:title, :description, :date, :location, :seats, :image)";
 
@@ -139,19 +139,52 @@ class AdminController
 
  public function update($id)
 {
-    $stmt = $this->pdo->prepare(
-        "SELECT * FROM events WHERE id = :id"
+
+     $stmt = $this->pdo->prepare(
+        "select * FROM events WHERE id = :id"
     );
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
+    $event=$stmt->fetch(PDO::FETCH_OBJ);
+       
+     
+     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $event = $stmt->fetch(PDO::FETCH_OBJ);
+        
+        if (isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
+            $uploadDir = __DIR__ . '/../../public/images/';
 
-    if (!$event) {
-        die("Event not found");
+       
+        $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+        $fileName = uniqid('event_', true) . '.' . $extension;
+        $filePath = $uploadDir . $fileName;
+        }
+
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $filePath)) {
+            $dbPath = 'public/images/' . $fileName;
+        }else{
+            $dbPath=$event->image; 
+        }
+
+        $sql = "update events set title=:title,description=:description,date=:date,location=:location,seats=:seats,image=:image;";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':title' => $_POST['title'],
+            ':description' => $_POST['description'],
+            ':date' => $_POST['date'],
+            ':location' => $_POST['location'],
+            ':seats' => $_POST['seats'],
+            ':image' => $dbPath
+        ]);
+
+        header('Location: http://localhost/MiniEvent/public/admin');
+        exit;
     }
 
-    require __DIR__ . '/../views/admin/details.php';
+    
+
+    require __DIR__ . '/../views/admin/update.php';
 }
 
 public function delete($id)
