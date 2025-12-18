@@ -135,3 +135,61 @@ td a:hover {
         height: 45px;
     }
 }
+/* Search form container */
+form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    width: fit-content;
+}
+
+/* Label */
+form label {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Search input */
+form input[type="search"] {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Input focus effect */
+form input[type="search"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+}
+
+/* Button */
+form button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Button hover */
+form button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+/* Button active */
+form button:active {
+    transform: translateY(0);
+}
+

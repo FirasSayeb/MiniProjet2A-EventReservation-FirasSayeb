@@ -204,4 +204,25 @@ public function delete($id)
     exit;
 }
 
+public function reservations(){
+
+     $req="select r.*,e.title from reservations r join events e on r.event_id=e.id";
+
+    if($_SERVER['REQUEST_METHOD'] == "POST"){
+      $req.=" where e.title like ? or e.title like ?";
+      $stmt=$this->pdo->prepare($req);  
+     $params = array($_POST["event"]."%", "%".$_POST["event"]."%");
+     $stmt->execute($params);
+    }else{
+        $stmt=$this->pdo->query($req);
+        $stmt->execute();
+    }
+
+     
+    $reservations=$stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    require __DIR__ . '/../views/admin/reservations.php';
+
+}
+
 }
